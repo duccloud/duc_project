@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>My App</title>
+    <link rel="stylesheet" type="text/css" href="css/myapp.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      {{#each sites}}
+        <div class="row">
+          {{#each this}} 
+          <div class="col-md-2">
+              <div class="wrap_item" style="boder: 1px solid">
+                <h4>{{ this.name }}</h4>
+                <img id="img1" style="width: 100%" src="{{ this.cover }}" alt="{{ this.name }}"><br><br>
+                <div style="text-align: center;">
+                <span class="label label-info">{{ this.source }}</span> <br><br>
+                <a href="{{ this.href}}" target="_blank">
+                  <button class="btn btn-primary">Download</button>
+                </a>
+                </div>
+              </div>              
+          </div>
+          {{/each}}
+        </div>
+      {{/each}}
+    </div>
+
+    <script type="text/javascript" src="js/myapp.js"></script>
+    <script type="text/javascript" src="js/zoomerang.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script>
+      Zoomerang.config({
+        maxHeight: 800,
+        maxWidth: 800,
+        bgOpacity: 0.85,
+        bgColor: '#000'
+      }).listen('#img1');
+    </script>
+  </body>
+</html>
