@@ -5,7 +5,7 @@ from pymongo import Connection
 def initDatabaseConnection():
 	c = Connection()
 	database = c.website_crawler 
-	siteModels = database.site_item
+	siteModels = database.site_items
 	return siteModels, database
 
 def isSiteModelIsExisting(sModels, siteLink):
