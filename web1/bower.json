@@ -6,7 +6,8 @@
     "backbone.marionette": "~1.4.1",
     "jquery": "~1.10.2",
     "underscore": "~1.5.2",
-    "backbone": "~1.1.0"    
+    "backbone": "~1.1.0",
+    "jquery-waypoints": "2.0.5"    
   },
   "devDependencies": {
     "jasmine": "~1.3.1"
@@ -20,6 +21,9 @@
     },
     "backbone": {
       "js": "backbone.js"
+    },
+    "jquery-waypoints": {
+      "js": "jquery_waypoints.js"  
     },
     "backbone.marionette": {
       "js": "lib/backbone.marionette.js"

@@ -3,6 +3,8 @@ var home = require('../controllers/home'),
 
 module.exports.initialize = function(app) {
     app.get('/', home.index);
+    app.get('/get_site', home.get_side_range);
+
     app.get('/api/contacts', contacts.index);
     app.get('/api/contacts/:id', contacts.getById);
     app.post('/api/contacts', contacts.add);
