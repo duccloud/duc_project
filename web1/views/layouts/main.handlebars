@@ -7,7 +7,7 @@
 
   </head>
   <body>
-    <input type="hidden" id="current_page" value="{{current_page}}">
+    <input type="hidden" id="current_page" value="1">
 
     <div class="container-fluid">
       <div class="infinite-container">
@@ -56,6 +56,8 @@
           {
               $('div#loadmoreajaxloader').show();
 
+              console.log('==> ', $('#current_page').val());
+
               $.ajax({
                 url: "/get_site?next_page=" + $('#current_page').val(),
                 dataType: 'json',
@@ -75,10 +77,11 @@
                       html += '<div class="col-md-2">';
                       html += '<div class="wrap_item" style="boder: 1px solid" item_id="'+ siteItem._id + '">';
                       html += '<h4>' + siteItem.name + '</h4>';
+                      html += '<span class="label label-info">' + siteItem.source + '</span><br><br>';
                       // html += '<div style="witdh: 100%; height: 130px; background: gray;"></div>';
                       html += '<img class="img1" style="width: 100%" src="' + siteItem.cover + '" alt="' +siteItem.name + '"><br><br>';
-                      html += '<div style="text-align: center;">';
-                      html += '<span class="label label-info">' + siteItem.source + '</span> <br><br>';
+                      html += '<div style="text-align: center;">';               
+                      html += '<span class="label label-info">' + siteItem.createdAt + '</span> <br><br>';       
                       html += '<a href="' + siteItem.href + '" target="_blank">';
                       html += '<button class="btn btn-primary">Download</button>';
                       html += '</a>';
