@@ -30,7 +30,7 @@ def craw(siteModels, db):
 			if str(hrefItem) > 0:
 				coverItem = urlparse.urljoin(url, tag.img['src'])
 									
-				process.insertSideMode(siteModels, nameItem, hrefItem, coverItem, 'wordpress')
+				process.insertWPSiteModel(siteModels, nameItem, [hrefItem], coverItem, 'wordpress')
 				
 		#craw right column
 		if tag.get('class') is not None and "col-3" in tag.get('class'):
@@ -58,4 +58,4 @@ def craw(siteModels, db):
 					nameItem = h2.string
 
 					if str(hrefItem) > 0:
-						process.insertSideMode(siteModels, nameItem, hrefItem, coverItem, 'wordpress')
+						process.insertWPSiteModel(siteModels, nameItem, [hrefItem], coverItem, 'wordpress')

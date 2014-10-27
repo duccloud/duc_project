@@ -130,6 +130,7 @@ table {
 body {
   padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: url('../img/bg.jpg');
 }
 a {
   color: #00B7FF;
@@ -199,18 +200,20 @@ label {
 }
 .wrap_item {
   border: 1px solid;
-  background: white;
-
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
   -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
   box-sizing: border-box;
-
-  padding: 0 10px 10px 10px;
+  padding: 5px;
   margin-top: 20px;
+
+  background: white;
 }
 
-.img1:hover{cursor: pointer;}
-
-body{
-  background: url('../img/bg.jpg');
+.wrap_item:hover img{
+  cursor: pointer;
 }

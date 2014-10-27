@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+    ObjectId = Schema.ObjectId,
+    mongoosePaginate = require('mongoose-paginate');    
 
 var Contact = new Schema({
     email:      { type: String },
@@ -21,7 +22,9 @@ var site_item = new Schema({
     updatedAt: {type: Date, default: Date.now}
 });
 
+site_item.plugin(mongoosePaginate)
+
 module.exports = {
     Contact: mongoose.model('Contact', Contact),
-    site_item: mongoose.model('site_item', site_item)
+    SiteItem: mongoose.model('site_item', site_item)
 };

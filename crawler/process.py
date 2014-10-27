@@ -15,12 +15,13 @@ def checkHrefIsDownloadFile(linkDownload):
 	fileName, extensionLink  = os.path.splitext(linkDownload)
 	return extensionLink == ".zip"
 
-def insertSideMode(sModels, name, href, cover, source):
-	if not isSiteModelIsExisting(sModels, href):
+def insertSiteModel(sModels, name, hrefs, cover, source, typeSite):
+	if not isSiteModelIsExisting(sModels, hrefs):
 		model = {
 			"name": name, 
 			"cover": cover, 
-			"href": href, 
+			"href": hrefs, 
+			"type": typeSite,
 			"source": source,
 			"createdAt": datetime.datetime.utcnow(),
 			"updatedAt": datetime.datetime.utcnow()
@@ -28,3 +29,6 @@ def insertSideMode(sModels, name, href, cover, source):
 
 		idModel = sModels.insert(model)	
 		print idModel
+
+def insertWPSiteModel(sModels, name, hrefs, cover, source):
+	insertSiteModel(sModels, name, hrefs, cover, source, "wordpress");

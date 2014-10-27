@@ -1,9 +1,11 @@
 var models = require('../app/models'),
 	md5 = require('MD5'),
 	_ = require('underscore'),
+    moment = require('moment'),
     paginate  = require('mongoose-range-paginate');
 
 var limitSizeSite = 24;
+var limitItemInGroup = 6;
 
 var returnRenderSitesData = function(sites){
     var groupIndex = 0;
@@ -12,13 +14,22 @@ var returnRenderSitesData = function(sites){
     var tmpGroup = [];
 
     _.each(sites, function(s){
-        if(itemInGroup == 6){
+        if(itemInGroup == limitItemInGroup){
             itemInGroup = 0;
             groupRender.push(tmpGroup);
             tmpGroup = [];
         }
 
-        tmpGroup.push(s);
+        var newItem = {}
+        newItem.cover = s.cover;
+        newItem.href = s.href;
+        newItem.name = s.name;
+        newItem.source = s.source;
+
+        var dObj = new Date(s.createdAt);
+        newItem.createdAt = moment(new Date(s.createdAt)).fromNow();
+
+        tmpGroup.push(newItem);
 
         itemInGroup++;
     });
@@ -28,31 +39,22 @@ var returnRenderSitesData = function(sites){
     return groupRender;
 }
 
-var getData = function(startId, callback){
-    var q = models.site_item.find({});
-
-    paginate(q, {
-        startId: startId,
-        limit: limitSizeSite
-    }).exec(function(err, sites){
-        renderData = returnRenderSitesData(sites)
-        callback(renderData);
-    });
-}
-
 module.exports = {
 	index: function(req, res) {
-        var q = models.site_item.find({}).limit(limitSizeSite);
-    	q.exec(function(err, sites){ 
-            renderData = returnRenderSitesData(sites);
-			res.render('index', {sites: renderData});
-    	});
+        var startPageIndex = 1;
+
+        models.SiteItem.paginate({}, startPageIndex, limitSizeSite, function(error, pageCount, paginatedResults, itemCount) {
+            renderData = returnRenderSitesData(paginatedResults);
+            res.render('index', {sites: renderData, item_count: itemCount, current_page: startPageIndex});
+        }, {sortBy : {createdAt: -1}});
     },
 
     get_side_range: function(req, res){
-        var nextId  = req.query.nextId;
-        getData(nextId, function(renderData){
-            res.json({sites: renderData});
-        });
+        var nextPageIndex  = req.query.next_page;
+
+        models.SiteItem.paginate({}, nextPageIndex, limitSizeSite, function(error, pageCount, paginatedResults, itemCount) {            
+            renderData = returnRenderSitesData(paginatedResults);
+            res.json({sites: renderData, item_count: itemCount, current_page: nextPageIndex + 1});
+        }, {sortBy : {createdAt: -1}});        
     }
 };
